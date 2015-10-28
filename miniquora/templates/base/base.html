@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    {% load staticfiles %}
+    {% load material_form %}
+    <head>
+        <title> Welcome To MiniQuora </title>
+        <link rel="stylesheet" href="{% static 'account/css/base.css' %}" >
+        {% include 'material/includes/material_css.html' %}
+    </head>
+    <body>
+        <main class="container">
+            <div class="card">
+                <h4>Login</h4>
+                <form action = "{% url 'login' %}" method = 'post'>
+                    {% csrf_token %}
+                    {% form form=form %}{% endform %}
+                    <button type="submit" name="login" class="btn waves-effect waves-light left">Log In</button>
+                </form>
+            </div>
+        </main>
+    </body>
+</html>
