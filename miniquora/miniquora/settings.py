@@ -119,7 +119,7 @@ MEDIA_URL = '/media/'
 
 LOGIN_URL = 'base'
 LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'secret'
+LOGIN_REDIRECT_URL = 'home'
 
 
 

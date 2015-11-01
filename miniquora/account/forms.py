@@ -21,3 +21,19 @@ class LoginForm(forms.Form):
 
     def get_user(self):
         return self.user_cache
+
+class SignupForm(forms.Form):
+    username = forms.CharField(max_length = 20)
+    password1 = forms.CharField(label = 'Password', max_length = 20, widget = forms.PasswordInput())
+    password2 = forms.CharField(label = 'Confirm Password',max_length = 20, widget = forms.PasswordInput())
+    email = forms.EmailField(max_length = 254)
+    phone_number = forms.CharField(max_length = 11)
+
+    def clean_username(self):
+        data_username = self.cleaned_data.get('username')
+        if data_username and CustomUser.objects.count(username = data_username) > 0:
+            raise forms.ValidationError('This username is already taken')
+        return data_username
+
+
+
