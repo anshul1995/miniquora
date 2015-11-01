@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate
+from .models import CustomUser
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length = 20)
@@ -23,8 +24,8 @@ class LoginForm(forms.Form):
         return self.user_cache
 
 class SignupForm(forms.ModelForm):
-    password1 = models.CharField(label='Password', widget = forms.PasswordInput)
-    password2 = models.CharField(label='Confirm Password', widget = forms.PasswordInput, help_text = 'Should be same as Password')
+    password1 = forms.CharField(label='Password', widget = forms.PasswordInput)
+    password2 = forms.CharField(label='Confirm Password', widget = forms.PasswordInput, help_text = 'Should be same as Password')
     def clean_password2(self):
         data_password1 = self.cleaned_data['password1']
         data_password2 = self.cleaned_data['password2']
