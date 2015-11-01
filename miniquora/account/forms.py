@@ -22,18 +22,25 @@ class LoginForm(forms.Form):
     def get_user(self):
         return self.user_cache
 
-class SignupForm(forms.Form):
-    username = forms.CharField(max_length = 20)
-    password1 = forms.CharField(label = 'Password', max_length = 20, widget = forms.PasswordInput())
-    password2 = forms.CharField(label = 'Confirm Password',max_length = 20, widget = forms.PasswordInput())
-    email = forms.EmailField(max_length = 254)
-    phone_number = forms.CharField(max_length = 11)
-
-    def clean_username(self):
-        data_username = self.cleaned_data.get('username')
-        if data_username and CustomUser.objects.count(username = data_username) > 0:
-            raise forms.ValidationError('This username is already taken')
-        return data_username
+class SignupForm(forms.ModelForm):
+    password1 = models.CharField(label='Password', widget = forms.PasswordInput)
+    password2 = models.CharField(label='Confirm Password', widget = forms.PasswordInput, help_text = 'Should be same as Password')
+    def clean_password2(self):
+        data_password1 = self.cleaned_data['password1']
+        data_password2 = self.cleaned_data['password2']
+        if data_password1 and data_password2 and data_password1 != data_password2:
+            return forms.ValidationError("Passwords don't match")
+        return data_password2
+    def save(self, commit = True):
+        user = super(SignupForm, self).save(commit = False)
+        user.set_password(self.cleaned_data.get('password1'))
+        user.is_active = False
+        if commit:
+            user.save()
+        return user
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'phone_number']
 
 
 
