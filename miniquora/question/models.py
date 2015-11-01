@@ -5,6 +5,8 @@ from account.models import CustomUser
 class Topic(models.Model):
     name = models.CharField(max_length = 40)
     url = models.URLField(max_length = 100, default = '')
+    def __str__(self):
+        return self.name
 
 class Question(models.Model):
     title = models.CharField(max_length = 256)
@@ -13,6 +15,8 @@ class Question(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
     by = models.ForeignKey(CustomUser)
     topics = models.ManyToManyField(Topic)
+    def __str__(self):
+        return self.title
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, related_name = 'answers')
@@ -23,6 +27,8 @@ class Answer(models.Model):
     is_spam = models.BooleanField(default = False)
     upvoted_by = models.ManyToManyField(CustomUser, related_name = 'answers_upvoted', blank = True)
     downvoted_by = models.ManyToManyField(CustomUser, related_name = 'answers_downvoted', blank = True)
+    def __str__(self):
+        return self.text[:20];
 
 
 
