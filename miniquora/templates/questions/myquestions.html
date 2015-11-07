@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+{% load material_form %}
+{% block pagetitle %} MiniQuora | My Question {% endblock %}
+{% block content %} 
+<ul class="collection with-header">
+    <li class="collection-header"> My Question <a href="{% url 'create_question' %}" class="right">Create </a> </li>
+    {% for question in questions %}
+    <li class="collection-item">
+        <div class="title"> {{ question.title }} </div>
+        <span class="by"> By {{ question.by.username }}, </span>
+        <span class="on"> On {{ question.created_at }} </span>
+        <div class="desc"> {{ question.desc }} </div>
+        <div class="answer_count"> {{ question.answers.count }} Answers </div>
+    </li>
+    {% endfor %}
+    <li>
+        {% if page.has_previous %}
+        <a class="left" href="{% url 'myquestions_with_page' page_num=page.previous_page_number %}">Previous</a>
+        {% endif %}
+        {% if page.has_next %}
+        <a class="right" href="{% url 'myquestions_with_page' page_num=page.next_page_number %}">Next</a>
+        {% endif %}
+    </li>
+</ul> 
+{% endblock %}

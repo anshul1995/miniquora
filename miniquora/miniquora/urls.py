@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'account.views.base', name = 'base'),
     url(r'^account/', include('account.urls')),
+    url(r'^question/', include('question.urls')),
 ] + static.static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
