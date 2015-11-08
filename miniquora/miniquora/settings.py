@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'miniquora',
         'HOST': 'localhost',
         'USER': 'root', 
-        'PASSWORD': 'anushray',
+        'PASSWORD': 'YbJMEWBt',
         'PORT' : 3306
     }
 }
@@ -122,4 +122,10 @@ LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
 
 
-
+DEFAULT_FROM_EMAIL = 'anshul.aggarwal@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER ='anshul.aggarwal@gmail.com'
+EMAIL_HOST_PASSWORD = 'fwhaeuwuwyofohlq'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
